@@ -12,6 +12,7 @@
               overflow-x: hidden;
               display: flex;
               justify-content: center;
+              height: 100vh;
               align-items: center;
               background: #EEEEEE;">
   <div class="container-fluid mt-3" style=" width: 100%;
@@ -30,7 +31,7 @@
                                   padding: 40px;">
       <div class="container">
         <h3>Talent Recruiter(TR)</h3><br>
-        <form action="login.html" method="post">
+        <form action="login.php" method="post">
           <div class="input-group">
             <input type="text" class="form-control" id="email" placeholder="Email" name="email">
             <span class="input-group-text">@gmail.com</span>
@@ -41,17 +42,11 @@
           <div class="input-group">
             <span class="input-group-text">https://linkedin.com/</span>
             <input type="text" class="form-control" id="linkedin" placeholder="LinkedIn" name="linkedin">
-          </div><br>
-          <label for="desk">Deskripsi Pekerjaan:</label>
-          <textarea class="form-control" rows="3" id="desk" name="desk"></textarea><br>
-          <label for="tj">Tanggung Jawab:</label>
-          <textarea class="form-control" rows="3" id="tj" name="tj"></textarea><br>
-          <label for="keahlian">Keahlian:</label>
-          <textarea class="form-control" rows="3" id="keahlian" name="keahlian"></textarea>
+          </div>
           <br><button type="submit" class="btn btn-primary text-white">Daftar</button>
           <br><br>
           <div class="d-flex flex-row-reverse">
-            <div class="p-2"><a href="login.html">Masuk.</a></div>
+            <div class="p-2"><a href="login.php">Masuk.</a></div>
             <div class="p-2">Sudah punya akun?</div>
           </div>
         </form>

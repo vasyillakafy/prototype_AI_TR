@@ -1,3 +1,32 @@
+<?php
+require ("koneksi.php");
+
+// if(!isset($_SESSION['id'])){
+//   $_SESSION['msg'] = 'Anda harus login untuk mengakses halaman ini!';
+//   header('Location: login.php');
+// }
+
+// $id = $_GET['id'];
+// $query = "SELECT * FROM role WHERE id_role='$id'";
+$query = "SELECT * FROM role";
+$result = mysqli_query($koneksi, $query) or die (mysql_error());
+while ($row = mysqli_fetch_array($result)){
+    $id_role = $row['id_role'];
+    $role = $row['role'];
+    $deskripsi = $row['deskripsi'];
+    $tanggungj = $row['tanggungj'];
+    $keahlian = $row['keahlian'];
+}
+
+session_start();
+//session
+$sesID = $_SESSION['id'];
+$sesName = $_SESSION['nama'];
+$sesImg = $_SESSION['foto'];
+$path = 'assets/img/';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,13 +46,13 @@
         <a class="nav-link" style="color: black; padding-right: 20px;" href="#"><h5>AI BASE TALENT RECRUITER</h5></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color: black;" href="index.html">Cari Pelamar</a>
+        <a class="nav-link" style="color: black;" href="index.php">Cari Pelamar</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color: black;" href="profil.html">Profile Anda</a>
+        <a class="nav-link" style="color: black;" href="profil.php">Profile Anda</a>
       </li>
     </ul>
-    <a href="login.html"><button type="button" class="btn btn-outline-primary">Keluar</button></a>
+    <a href="logout.php"><button type="button" class="btn btn-outline-primary">Keluar</button></a>
   </div>
 </nav>
 
@@ -33,14 +62,15 @@
                                           justify-content: center;
                                           align-items: center;
                                           flex-direction: column;">
+
   <h2>Pencarian Pelamar Pekerjaan</h2>
   <div class="container mt-3">
     <div class="card">
-      <select class="form-select">
+      <select id="list" name="list" onchange="getSelectedValue()" class="form-select">
         <option>Pilih Salah Satu Role</option>
-        <option>UI/UX Designer</option>
-        <option>Web Developer</option>
-        <option>Mobile Developer</option>
+        <option value="<?php echo $id_role='1' ?>">UI/UX Designer</option>
+        <option value="<?php echo $id_role='2' ?>">Web Developer</option>
+        <option value="<?php echo $id_role='3' ?>">Mobile Developer</option>
       </select>
     </div>
   </div>
@@ -54,12 +84,13 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            We are looking for a dynamic UI/UX designer who will be responsible for the user experience (UX) and user interface (UI) design of our mobile app/web. You will ensure that all elements of the online user experience are optimized for improved usability, usefulness, and exceptional visual design.
-            <br><br>
-            The successful candidate will evidence a passion for delivering adaptive and creative solutions to UI/UX design problems by staying up to date with best practices and emerging trends in user experience design and user interface technology.
+            <h5 id="deskripsi">
+              Deskripsi Pekerjaan dari Role
+            </h5>
           </div>
         </div>
       </div>
+
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -68,19 +99,13 @@
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <ul>
-              <li>Investigating user experience design requirements for our suite of digital assets (mobile app/web). </li>
-              <li>Developing and conceptualizing a comprehensive UI/UX design strategy for the mobile app.
-                  Producing high-quality UX design solutions through wireframes, visual and graphic designs, flow diagrams, storyboards, site maps, and prototypes. </li>
-              <li>Designing UI elements and tools such as navigation menus, search boxes, tabs, and widgets for our digital assets.
-                  Testing UI elements such as CTAs, banners, page layouts, page designs, page flows, and target links for landing pages. </li>
-              <li>Collaborating with the marketing team, and internal and external designers to ensure the creation and delivery of tailored experiences for the digital user.
-                  Providing advice and guidance on the implementation of UX research methodologies and testing activities in order to analyze and predict user behavior. </li>
-              <li> Adhering to style standards on typography and graphic design. </li>
-            </ul>
+            <h5 id="tanggungj">
+              Tanggung Jawab dari Role
+            </h5>
           </div>
         </div>
       </div>
+
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingThree">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -89,19 +114,14 @@
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <ul>
-              <li>Minimum of 5 years UI/UX design experience for digital products or services. </li>
-              <li>A portfolio of professional UI/UX design work for both web and mobile platforms. </li>
-              <li>Working knowledge of the following technologies and software: Sketch, InVision, Visio, HTML, CSS (SCSS), iOS, Android, Design Systems, and Adobe Creative Suite. </li>
-              <li>A team player but can work independently too. </li>
-              <li>Excellent written and verbal communication skills. </li>
-              <li>Multi-tasking and time-management skills, with the ability to prioritize tasks.
-              Can join ASAP </li>
-            </ul>
+            <h5 id="keahlian">
+              Keahlian yang dibutuhkan dari Role
+            </h5>
           </div>
         </div>
       </div>
     </div><br>
+
     <div class="card"><br>
       <h4 class="text-center"> Hasil Perangkingan Pelamar </h4><br>
       <table class="table table-striped table-hover">
@@ -122,13 +142,13 @@
           </tr>
           <tr>
             <th scope="row">2</th>
-            <td>Jacob</td>
+            <td>Mark</td>
             <td><span class="badge bg-primary">80</span></td>
             <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
           </tr>
            <tr>
             <th scope="row">3</th>
-            <td>Jacob</td>
+            <td>Mark</td>
             <td><span class="badge bg-primary">70</span></td>
             <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
           </tr>
@@ -140,13 +160,13 @@
           </tr>
           <tr>
             <th scope="row">5</th>
-            <td>Jacob</td>
+            <td>Mark</td>
             <td><span class="badge bg-warning">50</span></td>
             <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
           </tr>
            <tr>
             <th scope="row">6</th>
-            <td>Jacob</td>
+            <td>Mark</td>
             <td><span class="badge bg-warning">40</span></td>
             <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
           </tr>
@@ -159,19 +179,19 @@
           </tr>
           <tr>
             <th scope="row">8</th>
-            <td>Jacob</td>
+            <td>Mark</td>
             <td><span class="badge bg-danger">20</span></td>
             <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
           </tr>
            <tr>
             <th scope="row">9</th>
-            <td>Jacob</td>
+            <td>Mark</td>
             <td><span class="badge bg-danger">10</span></td>
             <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
           </tr>
           <tr>
             <th scope="row">10</th>
-            <td>Jacob</td>
+            <td>Mark</td>
             <td><span class="badge bg-danger">0</span></td>
             <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
           </tr>
@@ -184,7 +204,6 @@
           </li>
           <li class="page-item"><a class="page-link" href="#">1</a></li>
           <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
           <li class="page-item">
             <a class="page-link" href="#">Next</a>
           </li>
@@ -201,6 +220,14 @@
       
   </div>
 </div>
-
 </body>
+<script>
+		function getSelectedValue(){
+			var SelectedValue = document.getElementById("list").value;
+			document.getElementById("deskripsi").innerHTML = SelectedValue;
+      document.getElementById("tanggungj").innerHTML = SelectedValue;
+      document.getElementById("keahlian").innerHTML = SelectedValue;
+			console.log(SelectedValue);
+		}
+  </script>
 </html>

@@ -53,7 +53,7 @@
             <a class="nav-link" style="color: black;" href="profil.html">Profile Anda</a>
           </li>
         </ul>
-        <a href="login.html"><button type="button" class="btn btn-outline-primary">Keluar</button></a>
+        <a href="logout.php"><button type="button" class="btn btn-outline-primary">Keluar</button></a>
       </div>
     </nav>
 
@@ -63,9 +63,9 @@
       <div class="card" style="width: 18rem;">
       <img src="https://picsum.photos/100/" class="card-img-top">
         <div class="card-body">
-          <h3 class="card-text">M. Angga Gumilang</h3>
+          <h3 class="card-text">Vasyilla Kautsar A.F.Y</h3>
           <h5 class="card-text">Freelance UI /UX Designer </h5>
-          <p class="card-text"><i class="bi bi-geo-alt"></i> Pasuruan </p>
+          <p class="card-text"><i class="bi bi-geo-alt"></i> Jember </p>
         </div>
       </div>
     </div>

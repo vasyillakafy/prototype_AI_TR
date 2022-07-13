@@ -1,3 +1,47 @@
+<?php
+require ('koneksi.php');
+
+//memulai sesi
+session_start();
+
+//mengecek apakah variable terisi, dan tidak null
+if(isset($_POST['submit']) ){ 
+    $email = $_POST['email'];
+    $pass = $_POST['password'];
+
+    if(!empty(trim($email)) && !empty(trim($pass))){
+        $query = "SELECT * FROM user WHERE email = '$email'";
+        $result = mysqli_query($koneksi, $query);
+        $num = mysqli_num_rows($result);
+
+        while ($row = mysqli_fetch_array($result)){
+            $id = $row['id_user'];
+            $nama = $row['nama'];
+            $linkedin = $row['linkedin'];
+            $mailVal = $row['email'];
+            $passVal = $row['password'];
+            $city = $row['city'];
+            $bio = $row['bio'];
+            $foto = $row['foto'];
+        }
+        if ($num != 0){
+            if($mailVal==$email && $passVal==$pass) {
+                $_SESSION['id'] = $id;
+                $_SESSION['nama'] = $nama;
+                $_SESSION['foto'] = $foto;
+                header('Location: index.php');
+            } else{
+              echo "<script> alert('Password atau Username yang anda masukkan salah!') </script>";
+            }
+        } else{
+            echo "<script> alert('User tidak ditemukan!') </script>";
+        }
+    } else{
+      echo "<script> alert('Data tidak boleh kosong!') </script>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,19 +82,20 @@
       <div class="container">
         <h3>Talent Recruiter(TR)</h3><br><br>
         <h6>Silahkan masuk dengan akun yang telah terdaftar.</h6>
-        <form action="index.html" method="post">
+        
+        <form action="login.php" method="post">
           <div class="form-floating mb-3 mt-3">
             <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
             <label for="email">Email</label>
           </div>
           <div class="form-floating mt-3 mb-3">
-            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
-            <label for="pwd">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+            <label for="pass">Password</label>
           </div>
-          <button type="submit" class="btn btn-primary text-white">Masuk</button>
+          <button type="submit" name="submit" class="btn btn-primary text-white">Masuk</button>
           <br><br><br>
           <div class="d-flex flex-row-reverse">
-            <div class="p-2"><a href="register.html">Daftar Disini.</a></div>
+            <div class="p-2"><a href="register.php">Daftar Disini.</a></div>
             
             <div class="p-2">Belum punya akun?</div>
           </div>
