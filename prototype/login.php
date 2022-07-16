@@ -70,7 +70,7 @@ if(isset($_POST['submit']) ){
     <div class="row">
       <div class="col-sm-7 text-center" style=" padding:20px; background-color: #C6CCF8;">
         <div class="container">
-          <img src="assets/svg/loginn.svg" alt="avatar" width="100%">
+          <img src="assets/assets/svg/loginn.svg" alt="avatar" width="100%">
         </div><br>
         <h4>Cari pekerja dengan cepat dan mudah.</h4>
       </div>

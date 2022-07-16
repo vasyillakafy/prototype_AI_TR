@@ -6,24 +6,12 @@ require ("koneksi.php");
 //   header('Location: login.php');
 // }
 
-// $id = $_GET['id'];
-// $query = "SELECT * FROM role WHERE id_role='$id'";
-$query = "SELECT * FROM role";
-$result = mysqli_query($koneksi, $query) or die (mysql_error());
-while ($row = mysqli_fetch_array($result)){
-    $id_role = $row['id_role'];
-    $role = $row['role'];
-    $deskripsi = $row['deskripsi'];
-    $tanggungj = $row['tanggungj'];
-    $keahlian = $row['keahlian'];
-}
-
-session_start();
+// session_start();
 //session
-$sesID = $_SESSION['id'];
-$sesName = $_SESSION['nama'];
-$sesImg = $_SESSION['foto'];
-$path = 'assets/img/';
+// $sesID = $_SESSION['id'];
+// $sesName = $_SESSION['nama'];
+// $sesImg = $_SESSION['foto'];
+// $path = 'assets/img/';
 
 ?>
 
@@ -35,6 +23,9 @@ $path = 'assets/img/';
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
 
@@ -47,6 +38,9 @@ $path = 'assets/img/';
       </li>
       <li class="nav-item">
         <a class="nav-link" style="color: black;" href="index.php">Cari Pelamar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="color: black;" href="deskripsi.php">Deskripsi Pekerjaan</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" style="color: black;" href="profil.php">Profile Anda</a>
@@ -63,171 +57,77 @@ $path = 'assets/img/';
                                           align-items: center;
                                           flex-direction: column;">
 
-  <h2>Pencarian Pelamar Pekerjaan</h2>
-  <div class="container mt-3">
-    <div class="card">
-      <select id="list" name="list" onchange="getSelectedValue()" class="form-select">
-        <option>Pilih Salah Satu Role</option>
-        <option value="<?php echo $id_role='1' ?>">UI/UX Designer</option>
-        <option value="<?php echo $id_role='2' ?>">Web Developer</option>
-        <option value="<?php echo $id_role='3' ?>">Mobile Developer</option>
-      </select>
-    </div>
-  </div>
-  <div class="container mt-3">
-    <div class="accordion" id="accordionExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Deskripsi Pekerjaan
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <h5 id="deskripsi">
-              Deskripsi Pekerjaan dari Role
-            </h5>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Tanggung Jawab
-          </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <h5 id="tanggungj">
-              Tanggung Jawab dari Role
-            </h5>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Keahlian
-          </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <h5 id="keahlian">
-              Keahlian yang dibutuhkan dari Role
-            </h5>
-          </div>
-        </div>
-      </div>
-    </div><br>
-
+  <div class="container">
     <div class="card"><br>
-      <h4 class="text-center"> Hasil Perangkingan Pelamar </h4><br>
-      <table class="table table-striped table-hover">
+      <h4 class="text-center"> Cari Pelamar Pekerjaan dengan Mudah dan Cepat </h4><br>
+      <table class="table table-striped table-hover" id="tabel-data" >
         <thead>
           <tr>
             <th scope="col" width="10%">#</th>
-            <th scope="col" width="40%">Nama</th>
-            <th scope="col" width="25%">Score</th>
-            <th scope="col" width="25%">Detail</th>
+            <th scope="col" width="20%">Foto</th>
+            <th scope="col" width="20%">Nama</th>
+            <th scope="col" width="20%">Score</th>
+            <th scope="col" width="20%">Role</th>
+            <th scope="col" width="10%">Detail</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td><span class="badge bg-primary">90</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Mark</td>
-            <td><span class="badge bg-primary">80</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
-           <tr>
-            <th scope="row">3</th>
-            <td>Mark</td>
-            <td><span class="badge bg-primary">70</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
-             <tr>
-            <th scope="row">4</th>
-            <td>Mark</td>
-            <td><span class="badge bg-warning">60</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>Mark</td>
-            <td><span class="badge bg-warning">50</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
-           <tr>
-            <th scope="row">6</th>
-            <td>Mark</td>
-            <td><span class="badge bg-warning">40</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
-      
-          <tr>
-            <th scope="row">7</th>
-            <td>Mark</td>
-            <td><span class="badge bg-danger">30</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
-          <tr>
-            <th scope="row">8</th>
-            <td>Mark</td>
-            <td><span class="badge bg-danger">20</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
-           <tr>
-            <th scope="row">9</th>
-            <td>Mark</td>
-            <td><span class="badge bg-danger">10</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
-          <tr>
-            <th scope="row">10</th>
-            <td>Mark</td>
-            <td><span class="badge bg-danger">0</span></td>
-            <td><a href="detail.html"><button type="button" class="btn btn-primary">Detail</button> </a></td>
-          </tr>
+          <?php
+          $query = "SELECT * FROM pelamar Inner Join role_job on pelamar.id_role = role_job.id_role";
+          $result = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
+          while ($row = mysqli_fetch_array($result)) {
+            $id_pelamar = $row['id_pelamar'];
+            $id_role = $row['id_role'];
+            $nama = $row['nama'];
+            $alamat = $row['alamat'];
+            $linkedin = $row['linkedin'];
+            $skor = $row['skor'];
+            $role = $row['role'];
+            $foto = $row['foto'];
+            $no = 1;
+        
+            echo " 
+              <tr>
+                  <td>" . $no++ . "</td>
+                  <td> 
+                    <img src='assets/assets/img/" . $foto . "' width='50px' height='50px'> 
+                  </td>
+                  <td>" . $nama . "</td>
+                  <td>" . $skor . "</td>
+                  <td>" . $role . "</td>
+                  <td>
+                    <a href='detail.php?id=".$id_pelamar."'>
+                      <input type='button' class='btn btn-primary' value='Detail' name='detail'>
+                    </a>
+                  </td>
+                </tr>";
+                $no++;
+          }
+          
+          ?>
         </tbody>
       </table>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
-      </div>
-      </div>
-      
-      <footer>
+      <script>
+        $(document).ready(function() {
+          $('#tabel-data').DataTable({
+            columnDefs: [{
+              orderable: false,
+              targets: 0
+            }],
+            order: [
+              [3, "dsc"]
+            ]
+          });
+        });
+	    </script>     
+    </div>
+  </div>
+  
+  <footer>
         <div class="container">
           &copy; Copyright 2022
         </div>
-      </footer>
-      
-  </div>
+      </footer> 
 </div>
 </body>
-<script>
-		function getSelectedValue(){
-			var SelectedValue = document.getElementById("list").value;
-			document.getElementById("deskripsi").innerHTML = SelectedValue;
-      document.getElementById("tanggungj").innerHTML = SelectedValue;
-      document.getElementById("keahlian").innerHTML = SelectedValue;
-			console.log(SelectedValue);
-		}
-  </script>
 </html>

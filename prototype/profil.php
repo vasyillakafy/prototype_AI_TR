@@ -6,7 +6,7 @@ session_start();
 $sesID = $_SESSION['id'];
 $sesName = $_SESSION['nama'];
 $sesImg = $_SESSION['foto'];
-$path = 'assets/img/';
+$path = 'assets/assets/img/';
 
     $query = "SELECT * FROM user WHERE id_user='$sesID'";
     $result = mysqli_query($koneksi, $query) or die (mysql_error());
@@ -14,6 +14,7 @@ $path = 'assets/img/';
         $id_user = $row['id_user'];
         $nama = $row['nama'];
         $linkedin = $row['linkedin'];
+        $nohp = $row['nohp'];
         $email = $row['email'];
         $password = $row['password'];
         $city = $row['city'];
@@ -44,6 +45,9 @@ $path = 'assets/img/';
           <a class="nav-link" style="color: black;" href="index.php">Cari Pelamar</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" style="color: black;" href="deskripsi.php">Deskripsi Pekerjaan</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" style="color: black;" href="profil.php">Profile Anda</a>
         </li>
       </ul>
@@ -65,10 +69,10 @@ $path = 'assets/img/';
 			<div class="col-sm-7">
 				<div class="container" style="padding-top: 30px; padding-left: 30px;">
 					<h2><?php echo $nama;?></h2>
-					<h6 style="color: #8b8b8b;">Talent Recruiter &nbsp;&nbsp;| &nbsp;&nbsp;<?php echo $city;?></h6>&nbsp;
+					<h6 style="color: #8b8b8b;"><?php echo $nohp;?> &nbsp;&nbsp;| &nbsp;&nbsp;<i class="bi bi-geo-alt"></i><?php echo $city;?></h6>&nbsp;
 					<p style="text-align: justify;"><?php echo $bio;?></p>
-						<input type="image" src="assets\img\icons8-mail-40.png" width="30" height="30"> &nbsp;
-						<a href="https://<?php echo $linkedin;?>"><input type="image" src="assets\img\icons8-linkedin-40.png" width="30" height="30"></a>
+						<input type="image" src="assets\assets\img\icons8-mail-40.png" width="30" height="30"> &nbsp;
+						<a href="https://<?php echo $linkedin;?>"><input type="image" src="assets\assets\img\icons8-linkedin-40.png" width="30" height="30"></a>
 				</div>
 			</div>
 			<div class="col-sm-2">
@@ -78,21 +82,34 @@ $path = 'assets/img/';
 																			justify-content: left;
 																			align-items: left;">
 					<button type="button" class="btn btn-outline-dark" style="border-radius:10px;">Edit Profile  </button><br>
-					<button type="button" class="btn btn-outline-dark" style="border-radius:10px;">Edit Deskripsi</button>
 				</div>
 			</div>
-		</div>&nbsp;
+		</div>
 	</div><hr/>
   <div class="container">
-    &nbsp;<h3> CV Panca Prima Surabaya (Primtech)</h3>
-    &nbsp;<h5>Deskripsi Pekerjaan</h5>
-    <p style="text-align: justify;">We are looking for a dynamic UI/UX designer who will be responsible for the user experience (UX)
-      and user interface (UI) design of our mobile app/web. You will ensure that all elements of the online 
-      user experience are optimized for improved usability, usefulness, and exceptional visual design.
-      The successful candidate will evidence a passion for delivering adaptive and creative solutions 
-      to UI/UX design problems by staying up to date with best practices and emerging trends in user 
-      experience design and user interface technology.
-    </p>&nbsp;
+    &nbsp;<h3> Pengalaman Kerja</h3>
+      &nbsp;<h5>Software Engineer Manager - Tokopedia</h6>
+        <p>2014 - 2018</p>
+        <p style="text-align: justify;">
+          <ul>
+            <li>Bekerja dengan 3 orang <i>Project Manager</i> untuk melakukan <i>brainstorm</i> dan mengembangkan<i> payment detail page</i> dalam Web Aplication menggunakan JavaScript.</li>
+            <li>Melakukan <i>Software Testing</i> menggunakan <i>User Acceptance Testing</i> (UAT), melakukan <i>bug fixing</i> dan dokumentasi untuk meningkatkan efisiensi sebesar 20%</li>
+          </ul>
+        </p>&nbsp;
+      &nbsp;<h5>Talent Axquisition Specialist - TPS Food</h6>
+        <p>2018 - 2021</p>
+        <p style="text-align: justify;">
+          <ul>
+            <li>Mengelola seluruh proses rekrutment, mulai dari inisiasi permintaan, mengoordinasikan wawancara hingga penerimaan penawaran dan penempatan. Berhasil merekrut 35 orang dalam tenor kerja 3 tahun.</li>
+          </ul>
+        </p>&nbsp;
+        &nbsp;<h5>HRD Manager - Kino Indonesia</h6>
+        <p>2021 - Now</p>
+        <p style="text-align: justify;">
+          <ul>
+            <li>Mempertahankan staf organisasi dengan menetapkan program perekrutan, konseling manajer tentang pemilihan kandidat dan pengelolaan tim, melakukan dan menganalisis <i>exit interview</i> yang secara signifikan mengurangi pergantian staf dari 5% menjadi 1%</li>
+          </ul>
+        </p>&nbsp;
   </div><br><br>
 </body>
 </html>

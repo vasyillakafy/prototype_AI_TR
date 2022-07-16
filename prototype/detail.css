@@ -1,0 +1,24 @@
+.text-center, select, .card {
+    margin: 15px 0;
+  }
+  footer {
+    padding: 10px 0;
+    margin-top: 20px;
+    background-color: #000;
+    color: white;
+  }
+
+  .isi .list-group {
+    padding-top: 15px;
+    font-size: 1em;
+  }
+
+  .p-3 {
+    margin-top: 15px;
+  }
+  .p-3 h1 {
+    font-size: 12em;
+  }
+  .progress {
+    margin: 10px 0;
+  }
